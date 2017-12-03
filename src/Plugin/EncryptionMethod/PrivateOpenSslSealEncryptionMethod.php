@@ -126,7 +126,7 @@ class PrivateOpenSslSealEncryptionMethod extends EncryptionMethodBase implements
     // @see https://www.drupal.org/project/encrypt/issues/2749349
     $key_hash = md5($key_value);
 
-    return $this->state->get('encrypt_rsa.private.' . $key_hash . '.passphrase', 'private');
+    return $this->state->get('encrypt_rsa.private.' . $key_hash . '.passphrase', '');
   }
 
   /**

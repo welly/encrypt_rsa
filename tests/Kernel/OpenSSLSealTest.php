@@ -60,6 +60,8 @@ class OpenSSLSealTest extends KernelTestBase {
       ->getStorage('encryption_profile')
       ->load('openssl_seal_private');
 
+    $key_hash = md5($profile->getEncryptionKey()->getKeyValue());
+    $this->container->get('state')->set('encrypt_rsa.private.' . $key_hash . '.passphrase', 'private');
     $this->assertEquals(static::PLAIN_TEXT_MESSAGE, $profile->getEncryptionMethod()->decrypt($text, $profile->getEncryptionKey()->getKeyValue()));
 
   }
@@ -73,6 +75,8 @@ class OpenSSLSealTest extends KernelTestBase {
     $profile = $this->container->get('entity_type.manager')
       ->getStorage('encryption_profile')
       ->load('openssl_seal_private');
+    $key_hash = md5($profile->getEncryptionKey()->getKeyValue());
+    $this->container->get('state')->set('encrypt_rsa.private.' . $key_hash . '.passphrase', 'private');
 
     $text = $profile->getEncryptionMethod()->encrypt(static::PLAIN_TEXT_MESSAGE, $profile->getEncryptionKey()->getKeyValue());
 
